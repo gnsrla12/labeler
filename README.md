@@ -67,7 +67,3 @@ Usage
 
 Original  project address: [BBox-Label-Tool](https://github.com/puzzledqs/BBox-Label-Tool)
 
-
-
-# labeler
-# labeler
