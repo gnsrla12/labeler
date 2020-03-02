@@ -99,9 +99,12 @@ class LabelTool():
         self.btnclass = Button(self.frame, text='ComfirmClass', command=self.setClass)
         self.btnclass.grid(row=2, column=3, sticky=W+E)
 
+        self.imageLabel = Label(self.frame, text = 'Image Name:')
+        self.imageLabel.grid(row = 2, column = 1,  sticky = W+N)
+
         # showing bbox info & delete bbox
         self.lb1 = Label(self.frame, text = 'Bounding boxes:')
-        self.lb1.grid(row = 3, column = 2,  sticky = W+N)
+        self.lb1.grid(row = 4, column = 2,  sticky = W+N)
         self.listbox = Listbox(self.frame, width = 22, height = 12)
         self.listbox.grid(row = 4, column = 2, sticky = N+S)
         self.btnDel = Button(self.frame, text = 'Delete', command = self.delBBox)
@@ -165,6 +168,7 @@ class LabelTool():
         for e in extlist:
             filelist = glob.glob(os.path.join(self.imageDir, e))
             self.imageList.extend(filelist)
+        self.imageList.sort()
         #self.imageList = glob.glob(os.path.join(self.imageDir, '*.JPEG'))
         if len(self.imageList) == 0:
             print('No .JPEG images found in the specified dir!')
@@ -188,7 +192,9 @@ class LabelTool():
         filelist = glob.glob(os.path.join(self.egDir, '*.JPEG'))
         self.tmp = []
         self.egList = []
-        random.shuffle(filelist)
+        # print(filelist.sort())
+        # print(filelist)
+        # random.shuffle(filelist)
         for (i, f) in enumerate(filelist):
             if i == 1:
                 break
@@ -214,6 +220,8 @@ class LabelTool():
         self.mainPanel.config(width = max(self.tkimg.width(), 400), height = max(self.tkimg.height(), 400))
         self.mainPanel.create_image(0, 0, image = self.tkimg, anchor=NW)
         self.progLabel.config(text = "%04d/%04d" %(self.cur, self.total))
+        self.imageLabel.config(text = imagepath.split("/")[-1])
+        print(imagepath)
 
         # load labels
         self.clearBBox()
